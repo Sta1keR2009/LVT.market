@@ -1,0 +1,38 @@
+.lvt-mouser-search {
+    margin-top: 1rem;
+}
+
+.lvt-mouser-search__title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+}
+
+.lvt-mouser-search__note {
+    font-size: 0.8125rem;
+    margin: 0 0 0.65rem;
+    color: #444;
+}
+
+.lvt-mouser-search__table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.lvt-mouser-search__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+    background: #fff;
+}
+
+.lvt-mouser-search__table th,
+.lvt-mouser-search__table td {
+    border: 1px solid #ddd;
+    padding: 0.4rem 0.5rem;
+    vertical-align: top;
+}
+
+.lvt-mouser-search__desc {
+    max-width: 28rem;
+}

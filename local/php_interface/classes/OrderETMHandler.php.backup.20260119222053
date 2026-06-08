@@ -1,0 +1,443 @@
+<?php
+/**
+ * Обработчик событий заказов для интеграции с ЕТМ API
+ *
+ * Обрабатывает событие создания заказа в Bitrix и отправляет данные в ЕТМ API
+ * Создает запрос (order_ins), заказ (bill_ins) и добавляет товары (bill_item_ins)
+ *
+ * @author Claude Code
+ * @version 1.1
+ * @date 2026-01-19
+ */
+
+use Bitrix\Main\Loader;
+use Bitrix\Sale\Order;
+use Bitrix\Sale\Basket;
+
+class OrderETMHandler {
+
+    /**
+     * Путь к файлу логов
+     * @var string
+     */
+    private static $log_file;
+
+    /**
+     * Экземпляр API класса
+     * @var ETMAPI
+     */
+    private static $api;
+
+    /**
+     * Инициализация обработчика
+     */
+    public static function init() {
+        self::$log_file = $_SERVER['DOCUMENT_ROOT'] . '/api/logs/order_etm_integration_' . date('Y-m-d') . '.log';
+
+        // Подключаем класс API
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/api/classes/ETMAPI.php');
+
+        // Создаем экземпляр API (в тестовом режиме можно передать true)
+        self::$api = new ETMAPI(false);
+    }
+
+    /**
+     * Логирование событий
+     *
+     * @param string $message Сообщение для лога
+     * @param string $level Уровень (INFO, ERROR, SUCCESS)
+     * @param array $data Дополнительные данные
+     */
+    private static function log($message, $level = 'INFO', $data = []) {
+        $log_dir = dirname(self::$log_file);
+        if (!file_exists($log_dir)) {
+            mkdir($log_dir, 0755, true);
+        }
+
+        $timestamp = date('Y-m-d H:i:s');
+        $memory = round(memory_get_usage() / 1024 / 1024, 2) . ' MB';
+
+        $log_entry = "[{$timestamp}] [{$level}] {$message} | Memory: {$memory}";
+
+        if (!empty($data)) {
+            $log_entry .= "\n" . json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        }
+
+        $log_entry .= "\n" . str_repeat('=', 80) . "\n";
+
+        file_put_contents(self::$log_file, $log_entry, FILE_APPEND);
+    }
+
+    /**
+     * Обработчик события создания заказа
+     *
+     * @param \Bitrix\Main\Event $event Событие Bitrix
+     */
+    public static function onOrderAdd(\Bitrix\Main\Event $event) {
+        try {
+            // Инициализация
+            self::init();
+
+            /** @var Order $order */
+            $order = $event->getParameter('ENTITY');
+
+            if (!$order) {
+                self::log("Не удалось получить объект заказа из события", 'ERROR');
+                return;
+            }
+
+            $orderId = $order->getId();
+
+            self::log("Начало обработки заказа Bitrix", 'INFO', [
+                'bitrix_order_id' => $orderId
+            ]);
+
+            // Проверка, что заказ новый (не обновление)
+            if (!$order->isNew()) {
+                self::log("Заказ не новый, пропускаем", 'INFO', ['order_id' => $orderId]);
+                return;
+            }
+
+            // Получаем данные заказа
+            $orderData = self::getOrderData($order);
+
+            if (!$orderData) {
+                self::log("Не удалось получить данные заказа", 'ERROR', ['order_id' => $orderId]);
+                return;
+            }
+
+            // Отправляем заказ в ЕТМ API
+            $result = self::sendOrderToETM($orderData);
+
+            if ($result) {
+                self::log("Заказ успешно отправлен в ЕТМ API", 'SUCCESS', [
+                    'bitrix_order_id' => $orderId,
+                    'etm_order_id' => $result['order_id'] ?? null,
+                    'etm_bill_id' => $result['bill_id'] ?? null,
+                    'etm_bill_number' => $result['bill_number'] ?? null
+                ]);
+
+                // Сохраняем ID заказа ЕТМ в свойствах заказа Bitrix (опционально)
+                self::saveETMOrderId($order, $result);
+
+            } else {
+                self::log("Ошибка при отправке заказа в ЕТМ API", 'ERROR', [
+                    'bitrix_order_id' => $orderId
+                ]);
+            }
+
+        } catch (\Exception $e) {
+            self::log("Исключение при обработке заказа", 'ERROR', [
+                'exception' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+        }
+    }
+
+    /**
+     * Получение данных заказа из Bitrix
+     *
+     * @param Order $order Объект заказа
+     * @return array|false Данные заказа или false
+     */
+    private static function getOrderData(Order $order) {
+        try {
+            $orderId = $order->getId();
+
+            // Получаем корзину товаров
+            $basket = $order->getBasket();
+
+            if (!$basket) {
+                self::log("Не удалось получить корзину заказа", 'ERROR', ['order_id' => $orderId]);
+                return false;
+            }
+
+            $items = [];
+
+            /** @var \Bitrix\Sale\BasketItem $basketItem */
+            foreach ($basket as $basketItem) {
+                $productId = $basketItem->getProductId();
+                $quantity = $basketItem->getQuantity();
+
+                // Получаем свойство товара с item_id из ЕТМ (свойство 501)
+                $etmItemId = self::getETMItemId($productId);
+
+                if (!$etmItemId) {
+                    self::log("Товар не имеет ETM item_id, пропускаем", 'WARNING', [
+                        'product_id' => $productId,
+                        'name' => $basketItem->getField('NAME')
+                    ]);
+                    continue;
+                }
+
+                $items[] = [
+                    'item_id' => $etmItemId,
+                    'quantity' => $quantity,
+                    'product_id' => $productId,
+                    'name' => $basketItem->getField('NAME'),
+                    'price' => $basketItem->getPrice()
+                ];
+            }
+
+            if (empty($items)) {
+                self::log("В заказе нет товаров с ETM item_id", 'ERROR', ['order_id' => $orderId]);
+                return false;
+            }
+
+            return [
+                'bitrix_order_id' => $orderId,
+                'items' => $items,
+                'total_price' => $order->getPrice(),
+                'currency' => $order->getCurrency()
+            ];
+
+        } catch (\Exception $e) {
+            self::log("Ошибка при получении данных заказа", 'ERROR', [
+                'exception' => $e->getMessage()
+            ]);
+            return false;
+        }
+    }
+
+    /**
+     * Получение ETM item_id из свойств товара Bitrix
+     *
+     * @param int $productId ID товара в Bitrix
+     * @return int|false ETM item_id или false
+     */
+    private static function getETMItemId($productId) {
+        try {
+            Loader::includeModule('iblock');
+
+            // ID инфоблока товаров (11 согласно исследованию)
+            $iblockId = 11;
+
+            // ID свойства с ETM item_id (501 согласно исследованию)
+            $propertyId = 501;
+
+            $element = \CIBlockElement::GetList(
+                [],
+                ['ID' => $productId, 'IBLOCK_ID' => $iblockId],
+                false,
+                false,
+                ['ID', 'IBLOCK_ID', 'PROPERTY_' . $propertyId]
+            )->Fetch();
+
+            if ($element && !empty($element['PROPERTY_' . $propertyId . '_VALUE'])) {
+                return (int)$element['PROPERTY_' . $propertyId . '_VALUE'];
+            }
+
+            return false;
+
+        } catch (\Exception $e) {
+            self::log("Ошибка при получении ETM item_id", 'ERROR', [
+                'product_id' => $productId,
+                'exception' => $e->getMessage()
+            ]);
+            return false;
+        }
+    }
+
+    /**
+     * Отправка заказа в ЕТМ API
+     *
+     * Выполняет последовательность:
+     * 1. Создание запроса (order_ins)
+     * 2. Создание заказа (bill_ins)
+     * 3. Добавление товаров (bill_item_ins)
+     *
+     * @param array $orderData Данные заказа
+     * @return array|false Результат отправки или false
+     */
+    private static function sendOrderToETM($orderData) {
+        try {
+            self::log("Начало отправки заказа в ЕТМ API", 'INFO', [
+                'bitrix_order_id' => $orderData['bitrix_order_id'],
+                'items_count' => count($orderData['items'])
+            ]);
+
+            // Шаг 1: Создаем запрос (order_ins)
+            $orderResponse = self::$api->createOrder();
+
+            if (!$orderResponse) {
+                self::log("Ошибка создания запроса в ЕТМ (order_ins)", 'ERROR');
+                return false;
+            }
+
+            $etmOrderId = $orderResponse['order_id'];
+
+            self::log("Запрос создан в ЕТМ", 'SUCCESS', [
+                'etm_order_id' => $etmOrderId,
+                'etm_order_number' => $orderResponse['number'] ?? null
+            ]);
+
+            // Шаг 2: Создаем заказ (bill_ins)
+            $billResponse = self::$api->createBill([
+                'status' => 1,
+                'provider_id' => -1,
+                'pay_form_id' => 2 // Форма оплаты для аккаунта lvtgroup2
+            ]);
+
+            if (!$billResponse) {
+                self::log("Ошибка создания заказа в ЕТМ (bill_ins)", 'ERROR');
+                return false;
+            }
+
+            $etmBillId = $billResponse['bill_id'];
+
+            self::log("Заказ создан в ЕТМ", 'SUCCESS', [
+                'etm_bill_id' => $etmBillId,
+                'etm_bill_number' => $billResponse['number'] ?? null
+            ]);
+
+            // Шаг 3: Добавляем товары в заказ (bill_item_ins)
+            $addedItems = [];
+            $failedItems = [];
+
+            foreach ($orderData['items'] as $item) {
+                self::log("Попытка добавить товар в заказ ЕТМ", 'INFO', [
+                    'item_id' => $item['item_id'],
+                    'name' => $item['name'],
+                    'quantity' => $item['quantity']
+                ]);
+
+                $itemResponse = self::$api->addItemToBill(
+                    $etmBillId,
+                    $item['item_id'],
+                    $item['quantity'],
+                    0 // vendor_id = 0 (основной склад)
+                );
+
+                if ($itemResponse) {
+                    $addedItems[] = [
+                        'item_id' => $item['item_id'],
+                        'name' => $item['name'],
+                        'quantity' => $item['quantity'],
+                        'etm_price' => $itemResponse['price'] ?? null,
+                        'etm_sum' => $itemResponse['sum_'] ?? null
+                    ];
+
+                    self::log("Товар успешно добавлен в заказ ЕТМ", 'SUCCESS', [
+                        'item_id' => $item['item_id'],
+                        'etm_price' => $itemResponse['price'] ?? null
+                    ]);
+                } else {
+                    $failedItems[] = [
+                        'item_id' => $item['item_id'],
+                        'name' => $item['name'],
+                        'quantity' => $item['quantity'],
+                        'reason' => 'Возможно: товар отсутствует на складе, неверное количество или недопустимый поставщик'
+                    ];
+
+                    self::log("Не удалось добавить товар в заказ ЕТМ", 'ERROR', [
+                        'item_id' => $item['item_id'],
+                        'name' => $item['name'],
+                        'possible_reasons' => [
+                            'Товар отсутствует на складе',
+                            'Количество не соответствует требованиям (кратность, минимум)',
+                            'Товар доступен только от определенного поставщика',
+                            'Неверный item_id'
+                        ]
+                    ]);
+                }
+            }
+
+            // Определяем уровень лога в зависимости от результата
+            $logLevel = 'INFO';
+            $logMessage = 'Обработка товаров завершена';
+
+            if (empty($addedItems)) {
+                $logLevel = 'ERROR';
+                $logMessage = 'Ни один товар не был добавлен в заказ ЕТМ';
+            } elseif (!empty($failedItems)) {
+                $logLevel = 'WARNING';
+                $logMessage = 'Заказ создан частично: не все товары были добавлены';
+            } else {
+                $logLevel = 'SUCCESS';
+                $logMessage = 'Все товары успешно добавлены в заказ ЕТМ';
+            }
+
+            self::log($logMessage, $logLevel, [
+                'added_count' => count($addedItems),
+                'failed_count' => count($failedItems),
+                'added_items' => $addedItems,
+                'failed_items' => $failedItems
+            ]);
+
+            if (empty($addedItems)) {
+                self::log("КРИТИЧЕСКАЯ ОШИБКА: Заказ создан в ЕТМ, но без товаров!", 'ERROR', [
+                    'etm_bill_id' => $etmBillId,
+                    'etm_bill_number' => $billResponse['number'] ?? null,
+                    'note' => 'Возможно, нужно вручную добавить товары в заказ или удалить пустой заказ'
+                ]);
+                return false;
+            }
+
+            return [
+                'order_id' => $etmOrderId,
+                'order_number' => $orderResponse['number'] ?? null,
+                'bill_id' => $etmBillId,
+                'bill_number' => $billResponse['number'] ?? null,
+                'added_items' => $addedItems,
+                'failed_items' => $failedItems
+            ];
+
+        } catch (\Exception $e) {
+            self::log("Исключение при отправке заказа в ЕТМ", 'ERROR', [
+                'exception' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return false;
+        }
+    }
+
+    /**
+     * Сохранение ID заказа ЕТМ в свойствах заказа Bitrix (опционально)
+     *
+     * @param Order $order Объект заказа
+     * @param array $etmData Данные из ЕТМ
+     */
+    private static function saveETMOrderId(Order $order, $etmData) {
+        try {
+            // Можно добавить сохранение в свойства заказа или в отдельную таблицу
+            // Пример: сохранение в комментарий менеджера
+            $comment = $order->getField('COMMENTS');
+
+            $addedCount = count($etmData['added_items'] ?? []);
+            $failedCount = count($etmData['failed_items'] ?? []);
+            $totalCount = $addedCount + $failedCount;
+
+            $statusIcon = $failedCount > 0 ? '⚠️' : '✅';
+
+            $etmInfo = sprintf(
+                "\n\n%s [ЕТМ] Заказ #%s (ID: %d) | Счет #%s (ID: %d)\nТоваров добавлено: %d из %d",
+                $statusIcon,
+                $etmData['order_number'] ?? '',
+                $etmData['order_id'] ?? 0,
+                $etmData['bill_number'] ?? '',
+                $etmData['bill_id'] ?? 0,
+                $addedCount,
+                $totalCount
+            );
+
+            if ($failedCount > 0) {
+                $etmInfo .= "\n⚠️ Некоторые товары не были добавлены (возможно, нет в наличии)";
+            }
+
+            $order->setField('COMMENTS', $comment . $etmInfo);
+            $order->save();
+
+            self::log("ID заказа ЕТМ сохранен в комментарии заказа Bitrix", 'INFO', [
+                'bitrix_order_id' => $order->getId(),
+                'etm_order_id' => $etmData['order_id'] ?? null,
+                'added_items' => $addedCount,
+                'failed_items' => $failedCount
+            ]);
+
+        } catch (\Exception $e) {
+            self::log("Ошибка при сохранении ID заказа ЕТМ", 'ERROR', [
+                'exception' => $e->getMessage()
+            ]);
+        }
+    }
+}

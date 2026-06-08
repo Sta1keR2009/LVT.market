@@ -1,0 +1,15 @@
+[Unit]
+Description=ETT TNVED service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/www-root/data/www/lvtgroup.ru/ett
+ExecStart=/usr/bin/npm run start
+Restart=always
+EnvironmentFile=/var/www/www-root/data/www/lvtgroup.ru/ett/.env
+User=www-root
+Group=www-root
+
+[Install]
+WantedBy=multi-user.target

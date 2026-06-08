@@ -1,0 +1,323 @@
+/**
+ * Адаптив блока «Предложения поставщиков» (render-шаблоны).
+ * Карточки на планшетах/телефонах; переключатель валюты остаётся над списком.
+ */
+
+/* Только название бренда, без логотипов */
+.lvt-supplier-offers .getchips-offers__brand-logo-wrap,
+.lvt-supplier-offers .getchips-offers__brand-logo {
+    display: none !important;
+}
+
+.lvt-supplier-offers .getchips-offers__brand-link,
+.lvt-supplier-offers .getchips-offers__brand-fallback {
+    gap: 0;
+}
+
+@media (max-width: 991px) {
+    .lvt-supplier-offers {
+        margin-bottom: 1rem;
+    }
+
+    .lvt-supplier-offers__title {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .lvt-supplier-offers .getchips-offers__note,
+    .lvt-supplier-offers .getchips-offers__warn {
+        font-size: 0.78rem;
+        line-height: 1.4;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table-wrap {
+        overflow-x: visible;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table {
+        border: 0;
+        font-size: 0.8125rem;
+        min-width: 0;
+        width: 100%;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table thead {
+        display: block;
+        margin: 0 0 0.5rem;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table thead tr {
+        display: block;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table thead th {
+        display: none;
+        border: 0;
+        padding: 0;
+        background: transparent;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table thead th:nth-child(3) {
+        display: block;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table thead th:nth-child(3) .getchips-currency-switch-wrap {
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        gap: 0.35rem 0.45rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+        scrollbar-width: none;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table thead th:nth-child(3) .getchips-currency-switch-wrap::-webkit-scrollbar {
+        display: none;
+    }
+
+    .lvt-supplier-offers .getchips-currency-switch-label {
+        flex-shrink: 0;
+    }
+
+    .lvt-supplier-offers .getchips-currency-switch,
+    .lvt-supplier-offers .getchips-currency-rate,
+    .lvt-supplier-offers .getchips-currency-alert {
+        flex-shrink: 0;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table tbody {
+        display: block;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table tr.js-getchips-offer-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 0.35rem 0.5rem;
+        margin: 0 0 0.5rem;
+        padding: 0.5rem 0.6rem;
+        border: 1px solid #dce5dd;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .lvt-supplier-offers .getchips-offers__table tr.js-getchips-offer-row:nth-child(even) td {
+        background: transparent;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table--collapsible:not(.is-expanded) tr.getchips-offers__row--extra {
+        display: none;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table--collapsible.is-expanded tr.getchips-offers__row--extra {
+        display: grid;
+        animation: getchips-offers-row-open 0.35s ease-out;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table td {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 0.15rem;
+        border: none;
+        padding: 0.32rem 0.4rem;
+        border-radius: 4px;
+        background: #f6f8f6;
+        text-align: left;
+        min-width: 0;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table td::before {
+        content: attr(data-label);
+        flex: 0 0 auto;
+        font-weight: 600;
+        font-size: 0.65rem;
+        color: #5a6b5f;
+        line-height: 1.25;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table td > * {
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .lvt-supplier-offers .getchips-offers__name-cell {
+        grid-column: 1 / -1;
+        flex-direction: column;
+        align-items: stretch;
+        background: transparent;
+        padding: 0 0 0.25rem;
+        margin-bottom: 0;
+        border-bottom: 1px solid #e8ece8;
+        border-radius: 0;
+    }
+
+    .lvt-supplier-offers .getchips-offers__name-cell::before {
+        display: none;
+    }
+
+    .lvt-supplier-offers .getchips-offers__name-cell > * {
+        flex: 1 1 100%;
+    }
+
+    .lvt-supplier-offers .getchips-offers__name-cell .getchips-offers__part {
+        font-size: 0.85rem;
+        line-height: 1.25;
+    }
+
+    .lvt-supplier-offers .getchips-offers__name-cell .getchips-offers__supplier {
+        font-size: 0.7rem;
+        margin-top: 0.1rem;
+    }
+
+    .lvt-supplier-offers .getchips-offers__brand-cell {
+        grid-column: 1;
+    }
+
+    .lvt-supplier-offers .getchips-offers__price-cell {
+        grid-column: 2;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table tr.js-getchips-offer-row > td:nth-child(4) {
+        grid-column: 1;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table tr.js-getchips-offer-row > td:nth-child(5) {
+        grid-column: 2;
+    }
+
+    .lvt-supplier-offers .getchips-offers__qty-cell {
+        grid-column: 1 / -1;
+        background: transparent;
+        padding: 0.35rem 0 0;
+        border-radius: 0;
+    }
+
+    .lvt-supplier-offers .getchips-offers__brand-cell .getchips-offers__brand-link,
+    .lvt-supplier-offers .getchips-offers__brand-cell .getchips-offers__brand-fallback {
+        justify-content: flex-end;
+    }
+
+    .lvt-supplier-offers .getchips-offers__price-cell {
+        white-space: normal;
+        line-height: 1.35;
+    }
+
+    .lvt-supplier-offers .getchips-offers__qty-cell::before {
+        margin-bottom: 0.1rem;
+    }
+
+    .lvt-supplier-offers .getchips-offers__qty-input-row {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 0.35rem;
+        width: 100%;
+    }
+
+    .lvt-supplier-offers .getchips-offers__qty-input-row .getchips-offers__qty-input {
+        flex: 0 0 4.25rem;
+        min-width: 3.75rem;
+        max-width: 5rem;
+        width: 4.25rem;
+        margin-bottom: 0;
+    }
+
+    .lvt-supplier-offers .getchips-offers__qty-cell .getchips-offers__cart-btn-wrap {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .lvt-supplier-offers .getchips-offers__qty-cell .getchips-offers__cart-btn-wrap .btn {
+        width: 100%;
+        min-width: 0;
+        padding: 0.35rem 0.5rem;
+        font-size: 0.72rem;
+    }
+
+    .lvt-supplier-offers .getchips-offers__qty-meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.1rem 0.45rem;
+        margin-bottom: 0.15rem;
+        font-size: 0.65rem;
+        line-height: 1.2;
+    }
+
+    .lvt-supplier-offers .getchips-offers__qty-meta .getchips-offers__row-total {
+        grid-column: 1 / -1;
+        margin-top: 0.1rem;
+        font-size: 0.72rem;
+    }
+
+    .lvt-supplier-offers .getchips-offers__qty-hint {
+        font-size: 0.65rem;
+        margin-bottom: 0.15rem;
+    }
+
+    .lvt-supplier-offers .getchips-offers__show-all {
+        margin-top: 0.55rem;
+        padding: 0.55rem 0.75rem;
+    }
+
+    .lvt-supplier-offers .lvt-supplier-offers__tail-loading {
+        font-size: 0.78rem;
+        padding: 0.5rem 0;
+    }
+
+    .lvt-supplier-offers .lvt-supplier-skeleton .getchips-offers__table thead {
+        display: none;
+    }
+
+    .lvt-supplier-offers .lvt-supplier-skeleton .getchips-offers__table tbody tr {
+        display: block;
+        margin-bottom: 0.5rem;
+        border: 1px solid #eef2f6;
+        border-radius: 8px;
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .lvt-supplier-offers .getchips-offers__table tr.js-getchips-offer-row {
+        padding: 0.45rem 0.5rem;
+        gap: 0.28rem 0.4rem;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table td {
+        padding: 0.28rem 0.32rem;
+    }
+
+    .lvt-supplier-offers .getchips-offers__brand-cell .getchips-offers__brand-link,
+    .lvt-supplier-offers .getchips-offers__brand-cell .getchips-offers__brand-fallback {
+        justify-content: flex-start;
+        gap: 0.35rem;
+    }
+
+    .lvt-supplier-offers .getchips-offers__brand-name {
+        font-size: 0.72rem;
+    }
+
+    .lvt-supplier-offers .getchips-offers__price-cell {
+        font-size: 0.7rem;
+    }
+
+    .lvt-supplier-offers .getchips-currency-rate {
+        font-size: 0.65rem;
+        padding: 2px 5px;
+    }
+
+    .lvt-supplier-offers .getchips-currency-switch__trigger {
+        padding: 2px 6px;
+        font-size: 0.68rem;
+    }
+
+    .lvt-supplier-offers .getchips-currency-alert {
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
+    }
+}

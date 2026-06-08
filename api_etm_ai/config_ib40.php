@@ -1,0 +1,31 @@
+<?php
+/**
+ * Конфигурация ETM-каталога IBLOCK 41 (/katalog/).
+ */
+
+define('API_ETM_IBLOCK_ID', 41);
+define('API_ETM_PROP_ETM_CODE_ID', 2568);
+define('API_ETM_PROP_ETM_CODE', 'kod_tovara_');
+define('API_ETM_PRICE_TYPE_ID', 2);
+define('API_ETM_STORE_ID', 10);
+
+require_once __DIR__ . '/config.php';
+
+/** @deprecated */
+define('API_ETM_PROP_ETM_CODE_LEGACY', 'ID_ELEMENTA');
+define('API_ETM_PROP_ETM_CODE_LEGACY_ID', 2278);
+
+define('API_ETM_PROP_DESC', 'DESCRIPTION');
+define('API_ETM_PROP_BRAND', 'BRAND');
+define('API_ETM_PROP_ARTICLE', 'CML2_ARTICLE');
+define('API_ETM_PROP_PICTURES', 'MORE_PHOTO');
+define('API_ETM_PROP_PICTURES_ID', 2559);
+define('API_ETM_PROP_EXTRA_INFO', 'DOPOLNITELNAYA_INFORMATSIYA');
+define('API_ETM_PROP_COMPLECTATION', 'PROP_284');
+define('API_ETM_PROP_APPLICATION', 'SFERA_PRIMENENIYA');
+define('API_ETM_PROP_OKPD2', 'ETM_KOD_OKPD_2');
+define('API_ETM_PROP_TN_VED', 'TN_VED');
+define('API_ETM_PROP_VARIANT_CODES_STORE', 'INTERCHANGEABLE_ANALOG_CODES');
+define('API_ETM_PROP_VARIANT_CODES_STORE_ID', 4445);
+define('API_ETM_ENRICH_STATE', API_ETM_LOGS_DIR . '/enrich_chars_state.json');
+define('API_ETM_REMAINS_OFFSET_FILE', API_ETM_LOGS_DIR . '/remains_offset_ib40.json');

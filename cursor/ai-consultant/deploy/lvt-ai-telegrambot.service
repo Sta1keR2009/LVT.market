@@ -1,0 +1,16 @@
+[Unit]
+Description=LVT AI consultant Telegram bot (long polling + menu)
+After=network.target lvt-ai-consultant.service
+Wants=lvt-ai-consultant.service
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/www-root/data/www/lvtgroup.ru/cursor/ai-consultant/telegrambot
+EnvironmentFile=/var/www/www-root/data/www/lvtgroup.ru/cursor/ai-consultant/telegrambot/.env
+ExecStart=/usr/bin/node dist/index.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

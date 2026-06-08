@@ -1,0 +1,19 @@
+<?php return array (
+  'generated' => '2026-02-14 08:52:43',
+  'version' => '1.0.0',
+  'checksums' => 
+  array (
+    'lib/demomanager.php' => '2bc2c136ea49de1a05e6700336847b210ed9f3a400dc7c39a9bc1acf1e443274',
+    'lib/modulelist.php' => 'f76a2ff6d6ce5da64cccb787f51fbb1cc6e22818d141d659f93893679cc703fa',
+    'lib/integritychecker.php' => 'd48bef3bada881e42415907c2565c66ca07182982e3cb00d21cf22233cabee71',
+    'options.php' => '6790e1b7d338dca134f7487a2a029991b01046d0ac7ec4ccf3c8d3e6db75772d',
+    'include.php' => '0981e9b6f84c1eb8c269d84b09252ca70983480021b1a510f4ee8d2f973b8658',
+    'install/index.php' => 'b0d4ca9807fe755ed7105425d54fcd053e3e81bc39d7e3754ded5ab992a69c82',
+    'lang:lang/ru/lang.php' => '75d518fb99ec4d4d6a2c6466f8515f2a089158918ad504e8949e0934c4b63c63',
+    'lang:lang/ru/options.php' => '0f2b7ea2b426405a68a6a540aa4351e25bbc5e3688cdc3577ba15b3f3a3222cc',
+    'lang:install/lang/ru/install.php' => 'fe8da66c9feb61fba1d52e95ef5074485beba5ebac63e86886324c647e6af324',
+    'lang:install/lang/ru/index.php' => '0a0110350e148754ed514caef6c1c521d639294e8600c5c240a20ccaaefd2c54',
+    'lang:admin/lang/ru/menu.php' => '3455ee0cd16bc4107ec80fb3fd4d3195efeb1251d193d2d31692c2185e558c31',
+  ),
+  'signature' => 'a5c082f4cd7b55496259b566243d7a2443c31436040db76301229108dfa9eefa',
+);

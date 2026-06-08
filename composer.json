@@ -1,0 +1,6 @@
+{
+    "require": {
+        "bggardner/oauth2-digikey": "dev-master",
+        "league/oauth2-client": "^2.8"
+    }
+}

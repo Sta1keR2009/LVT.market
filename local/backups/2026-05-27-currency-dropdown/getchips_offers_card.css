@@ -1,0 +1,649 @@
+.getchips-offers-section {
+    margin-bottom: 1.25rem;
+}
+
+.getchips-offers__title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+}
+
+.getchips-offers__warn {
+    font-size: 0.875rem;
+    color: #8a5a00;
+    background: #fff8e6;
+    border: 1px solid #f0e0b2;
+    padding: 0.65rem 0.75rem;
+    border-radius: 4px;
+    margin: 0 0 1rem;
+}
+
+.getchips-offers__table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 991px) {
+    .lvt-supplier-offers__title {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .getchips-offers__table {
+        min-width: 520px;
+    }
+
+    .lvt-supplier-offers .getchips-offers__table {
+        min-width: 0;
+    }
+    .getchips-offers-section .btn,
+    .getchips-offers-section .button {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+.getchips-offers__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+}
+
+.getchips-offers__table th,
+.getchips-offers__table td {
+    border: 1px solid #e5e5e5;
+    padding: 0.3rem 0.4rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.getchips-offers__table th {
+    background: #f7f7f7;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.getchips-currency-switch {
+    position: relative;
+    display: inline-flex;
+}
+
+.getchips-currency-switch-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.getchips-currency-switch-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #1a3f6b;
+}
+
+.getchips-currency-rate {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #234f7b;
+    background: #f2f7ff;
+    border: 1px solid #bfd4ec;
+    border-radius: 5px;
+    padding: 2px 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.getchips-currency-alert {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff3cd;
+    border: 1px solid #f0c36d;
+    color: #8a5a00;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: help;
+    line-height: 1;
+}
+
+.js-getchips-usd-alert {
+    display: none;
+}
+
+.getchips-currency-alert::after {
+    content: attr(data-notice);
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    min-width: 260px;
+    max-width: 360px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #f0c36d;
+    background: #fff9e8;
+    color: #6a4a00;
+    font-size: 0.72rem;
+    line-height: 1.35;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 30;
+}
+
+.getchips-currency-alert:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.getchips-currency-switch__trigger {
+    border: 1px solid #7ea6d1;
+    background: #eef5ff;
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 0.74rem;
+    line-height: 1.25;
+    color: #123e6b;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px rgba(18, 62, 107, 0.08);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.getchips-currency-switch__trigger:hover {
+    background: #dfeeff;
+    border-color: #5e8fc4;
+}
+
+.getchips-currency-switch__caret {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid #8a8a8a;
+}
+
+.getchips-currency-switch__menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 108px;
+    z-index: 20;
+    background: #fff;
+    border: 1px solid #7ea6d1;
+    border-radius: 6px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+    padding: 4px;
+}
+
+.getchips-currency-switch.is-open .getchips-currency-switch__menu {
+    display: block;
+}
+
+.getchips-currency-switch__item {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    font-size: 0.72rem;
+    padding: 5px 7px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.getchips-currency-switch__item:hover {
+    background: #f4f4f4;
+}
+
+.getchips-currency-switch__item.is-active {
+    background: #dfeeff;
+    color: #123e6b;
+    font-weight: 600;
+}
+
+.getchips-offers__table--collapsible:not(.is-expanded) .getchips-offers__row--extra {
+    display: none;
+}
+
+.getchips-offers__table--collapsible.is-expanded .getchips-offers__row--extra {
+    display: table-row;
+    animation: getchips-offers-row-open 0.4s ease-out;
+}
+
+@keyframes getchips-offers-row-open {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.getchips-offers__show-all {
+    display: block;
+    width: 100%;
+    margin-top: 0.45rem;
+    padding: 0.4rem 0.65rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #0a5c28;
+    background: #f4faf6;
+    border: 1px solid #c5e0cd;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.getchips-offers__show-all:hover {
+    background: #e8f4ec;
+    border-color: #9ccfaa;
+}
+
+.getchips-offers__table tr:nth-child(even) td {
+    background: #fafafa;
+}
+
+.getchips-offers__qty-input-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0;
+}
+
+.getchips-offers__qty-input-row .getchips-offers__qty-input {
+    margin-bottom: 0;
+    flex: 0 1 auto;
+    min-width: 3.25rem;
+    max-width: 6rem;
+}
+
+.getchips-offers__qty-cell .getchips-offers__cart-btn-wrap {
+    margin-top: 0;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+}
+
+.getchips-offers__qty-cell .getchips-offers__cart-btn-wrap .btn {
+    width: 112px;
+    min-width: 112px;
+    padding: 0.28rem 0.5rem;
+    font-size: 0.72rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.getchips-offers__add-basket.btn-sm {
+    border-radius: 4px;
+}
+
+/* В корзине: зелёная; количество отличается от сохранённого в корзине: синяя */
+.getchips-offers__add-basket.btn.getchips-offers__add-basket--in-cart {
+    background: #198754;
+    border-color: #146c43;
+    color: #fff;
+}
+
+.getchips-offers__add-basket.btn.getchips-offers__add-basket--in-cart:hover:not(:disabled) {
+    background: #157347;
+    border-color: #0f5132;
+    color: #fff;
+}
+
+.getchips-offers__add-basket.btn.getchips-offers__add-basket--qty-changed {
+    background: #0d6efd;
+    border-color: #0a58ca;
+    color: #fff;
+}
+
+.getchips-offers__add-basket.btn.getchips-offers__add-basket--qty-changed:hover:not(:disabled) {
+    background: #0b5ed7;
+    border-color: #084298;
+    color: #fff;
+}
+
+.getchips-offers__add-basket.getchips-offers__add-basket--in-cart:disabled,
+.getchips-offers__add-basket.getchips-offers__add-basket--qty-changed:disabled {
+    opacity: 0.88;
+}
+
+.getchips-offers__btn {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.getchips-offers__btn:hover:not(:disabled) {
+    border-color: #999;
+    background: #f5f5f5;
+}
+
+.getchips-offers__btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.getchips-offers__link {
+    font-size: 0.8125rem;
+}
+
+.getchips-offers__muted {
+    color: #999;
+    font-size: 0.8125rem;
+}
+
+.getchips-offers__th-sort {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.15rem;
+}
+
+.getchips-offers__sort-btn {
+    padding: 0 0.2rem;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.getchips-offers__sort-btn:hover {
+    border-color: #999;
+    background: #f5f5f5;
+}
+
+.getchips-offers__brand-cell {
+    vertical-align: middle;
+    min-width: 5.5rem;
+}
+
+.getchips-offers__brand-link,
+.getchips-offers__brand-fallback {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.getchips-offers__brand-link:hover .getchips-offers__brand-name {
+    text-decoration: underline;
+}
+
+.getchips-offers__brand-logo-wrap {
+    flex-shrink: 0;
+}
+
+.getchips-offers__brand-logo {
+    display: block;
+    max-width: 100%;
+    max-height: 64px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Таблица Getchips на карточке (.detail): логотипы брендов, без глобального .detail img */
+.detail .getchips-offers-section .getchips-offers__brand-logo {
+    max-height: 64px;
+}
+
+.getchips-offers__brand-name {
+    font-weight: 500;
+    font-size: 0.8125rem;
+}
+
+.getchips-offers__name-cell .getchips-offers__part {
+    font-weight: 700;
+    font-size: 0.8125rem;
+}
+
+.getchips-offers__name-cell .getchips-offers__supplier {
+    font-size: 0.75rem;
+    color: #555;
+    margin-top: 0.2rem;
+}
+
+.getchips-offers__price-cell {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+/* Только ступень, соответствующая введённому количеству (is-active выставляет JS) */
+.getchips-offers__price-cell br {
+    display: none;
+}
+
+.getchips-offers__price-cell .js-getchips-price-tier:not(.is-active) {
+    display: none !important;
+}
+
+.getchips-offers__price-cell .getchips-offers__rub-hint {
+    display: none;
+}
+
+.getchips-offers__price-tier.is-active {
+    display: inline !important;
+    background: rgba(10, 107, 45, 0.12);
+    border-radius: 3px;
+    padding: 0 0.2em;
+    font-weight: 600;
+    color: #0a5c28;
+}
+
+.getchips-offers__price-tier.is-active strong {
+    font-weight: 600;
+}
+
+.getchips-offers__qty-cell {
+    min-width: 8.5rem;
+    vertical-align: middle;
+}
+
+.getchips-offers__qty-input {
+    width: 76px;
+    min-width: 76px;
+    max-width: 76px;
+    padding: 0.25rem 0.35rem;
+    font-size: 0.8125rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 0.35rem;
+}
+
+/* Стрелки stepper у type=number (часто скрывают глобальные стили) */
+.getchips-offers__qty-input[type='number']::-webkit-outer-spin-button,
+.getchips-offers__qty-input[type='number']::-webkit-inner-spin-button {
+    opacity: 1;
+    height: 1.5rem;
+}
+
+.getchips-offers__qty-hint {
+    min-height: 1.15em;
+    font-size: 0.7rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.getchips-offers__qty-hint--warn {
+    color: #b42318;
+}
+
+.getchips-offers__row-total {
+    font-weight: 600;
+    color: #222;
+    margin-top: 0.15rem;
+}
+
+.getchips-offers__qty-meta {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.7rem;
+    color: #666;
+    line-height: 1.25;
+    margin-bottom: 0.35rem;
+}
+
+/* Модалка предложений (плитка каталога) */
+body.getchips-modal-open {
+    overflow: hidden;
+}
+
+.getchips-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 12000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.getchips-modal.is-open {
+    display: flex;
+}
+
+.getchips-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.getchips-modal__dialog {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: min(1100px, 100vw - 2rem);
+    max-height: min(90vh, 900px);
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.getchips-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    border-bottom: 1px solid #e5e5e5;
+    background: #f7f7f7;
+}
+
+.getchips-modal__title {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.getchips-modal__close {
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #444;
+    padding: 0 0.25rem;
+}
+
+.getchips-modal__close:hover {
+    color: #000;
+}
+
+.getchips-modal__body {
+    padding: 0.75rem 0.85rem 1rem;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.getchips-modal__body .getchips-offers-section {
+    margin-bottom: 0;
+}
+
+.getchips-modal__body .getchips-offers__title {
+    display: none;
+}
+
+.getchips-modal__loading,
+.getchips-modal__err {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: #555;
+    font-size: 0.9375rem;
+}
+
+.getchips-modal__err {
+    color: #a33;
+}
+
+.getchips-modal__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+}
+
+.getchips-modal__spinner {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #ddd;
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: getchips-spin 0.7s linear infinite;
+}
+
+@keyframes getchips-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.js-getchips-load-offers-section.is-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.72;
+    padding-right: 2rem;
+}
+
+.js-getchips-load-offers-section.is-loading::after {
+    content: '';
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    width: 1rem;
+    height: 1rem;
+    margin-top: -0.5rem;
+    border: 2px solid #ccc;
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: getchips-spin 0.7s linear infinite;
+}

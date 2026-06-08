@@ -1,0 +1,11 @@
+<?php
+/**
+ * Локальная конфигурация API ETM.
+ * Скопируйте в config_local.php и задайте свои значения.
+ * config_local.php не коммитится в репозиторий.
+ */
+
+// define('ETM_API_URL', 'https://itest2.etm.ru/api/v1');
+// define('ETM_LOGIN', 'ваш_логин');
+// define('ETM_PASSWORD', 'ваш_пароль');
+// define('API_ETM_STATE_FILE', __DIR__ . '/logs/api_etm_state.json');

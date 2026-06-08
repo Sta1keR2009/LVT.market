@@ -1,0 +1,5 @@
+<?php
+
+    $MESS['IPOL_ROBOKASSA_HANDLER_ERROR_PAYMENT_NOT_FOUND'] = 'Оплата %s не найдена';
+    $MESS['IPOL_ROBOKASSA_HANDLER_ERROR_ORDER_NOT_FOUND'] = 'Заказ %s не найден';
+    $MESS['IPOL_ROBOKASSA_HANDLER_ERROR_ORDER_NOT_FOUND_EXTEND'] = 'Заказ %s не найден, %s';

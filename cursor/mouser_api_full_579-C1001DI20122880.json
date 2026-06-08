@@ -1,0 +1,84 @@
+{
+  "query": "579-C1001DI20122880",
+  "ok": true,
+  "http": 200,
+  "error": null,
+  "note": "Снимок ответа Mouser Search API v1 search/partnumber (runtime). DataSheetUrl для этой позиции в ответе пустая строка.",
+  "data": {
+    "Errors": [],
+    "SearchResults": {
+      "NumberOfResult": 1,
+      "Parts": [
+        {
+          "Availability": "1190 Склад в США",
+          "DataSheetUrl": "",
+          "Description": "Стандартные тактовые генераторы MEMS OSC, LVCMOS, 12.288MHz, 25PPM, 1.8-3.3V, -40 to 85C, 2.5 x 2.0mm",
+          "FactoryStock": "0",
+          "ImagePath": "https://www.mouser.com/images/microchiptechnology/images/CDFN_4_DSL.jpg",
+          "Category": "Стандартные тактовые генераторы",
+          "LeadTime": "56 Дни",
+          "LifecycleStatus": "New Product",
+          "Manufacturer": "Microchip Technology",
+          "ManufacturerPartNumber": "DSC1001DI2-012.2880",
+          "Min": "1",
+          "Mult": "1",
+          "MouserPartNumber": "579-C1001DI20122880",
+          "ProductAttributes": [
+            {
+              "AttributeName": "Упаковка",
+              "AttributeValue": "Cut Tape"
+            },
+            {
+              "AttributeName": "Кол-во в стандартной упаковке",
+              "AttributeValue": "140"
+            }
+          ],
+          "PriceBreaks": [
+            {
+              "Quantity": 1,
+              "Price": "$0.78",
+              "Currency": "USD"
+            },
+            {
+              "Quantity": 25,
+              "Price": "$0.65",
+              "Currency": "USD"
+            }
+          ],
+          "AlternatePackagings": null,
+          "ProductDetailUrl": "https://eu.mouser.com/ProductDetail/Microchip-Technology/DSC1001DI2-012.2880?qs=HFfMDpzxxd0c7JMGLoDz6Q%3D%3D",
+          "Reeling": false,
+          "ROHSStatus": "RoHS Compliant",
+          "SuggestedReplacement": "",
+          "MultiSimBlue": 0,
+          "AvailabilityInStock": "1190",
+          "AvailabilityOnOrder": [],
+          "InfoMessages": [],
+          "SurchargeMessages": null,
+          "ProductCompliance": [
+            {
+              "ComplianceName": "USHTS",
+              "ComplianceValue": "8541600050"
+            },
+            {
+              "ComplianceName": "JPHTS",
+              "ComplianceValue": "854160010"
+            },
+            {
+              "ComplianceName": "TARIC",
+              "ComplianceValue": "8541600000"
+            },
+            {
+              "ComplianceName": "MXHTS",
+              "ComplianceValue": "8541600100"
+            },
+            {
+              "ComplianceName": "ECCN",
+              "ComplianceValue": "EAR99"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

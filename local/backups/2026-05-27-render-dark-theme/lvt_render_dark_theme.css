@@ -1,0 +1,89 @@
+/**
+ * Тёмная тема для кастомных блоков LVT в шаблоне aspro-lite-render.
+ * Использует CSS-переменные Aspro (css/blocks/dark-light-theme.css).
+ */
+
+/* Ступени цены на карточке товара */
+.price-tiers {
+    background: var(--card_bg_black, #fff);
+    box-shadow: var(--light, 0 1px 3px rgba(0, 0, 0, 0.1)) var(--dark, 0 1px 3px rgba(0, 0, 0, 0.35));
+}
+
+.price-tiers__title {
+    color: var(--white_text_black, #222);
+    border-bottom-color: var(--stroke_black, #eee);
+}
+
+.price-tier {
+    color: var(--basic_text_black, #666);
+}
+
+.price-tier__price {
+    color: var(--white_text_black, #222);
+}
+
+/* Блок спецификации / файлов */
+.specification-container {
+    background: var(--card_bg_black, #fff);
+    border-color: var(--stroke_black, #f0f0f0);
+    box-shadow: var(--light, 0 2px 8px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05))
+        var(--dark, 0 2px 12px rgba(0, 0, 0, 0.35));
+}
+
+.specification-title {
+    color: var(--white_text_black, #333);
+}
+
+.specification-file {
+    border-color: var(--stroke_black, #e0e0e0);
+    background: var(--card_bg_black, #fff);
+}
+
+.specification-file:hover {
+    border-color: var(--light, #163760) var(--dark, #5a8fd4);
+    box-shadow: var(--light, 0 2px 8px rgba(22, 55, 96, 0.1)) var(--dark, 0 2px 10px rgba(0, 0, 0, 0.25));
+}
+
+.specification-file__name {
+    color: var(--white_text_black, #333);
+}
+
+.specification-file__name:hover {
+    color: var(--light, #163760) var(--dark, #8eb8f0);
+}
+
+.specification-file__size {
+    color: var(--lite_basic_text_black, #666);
+    background: var(--darkgrey_bg_black, #f8f9fa);
+}
+
+.specification-file__type {
+    color: var(--lite_basic_text_black, #999);
+}
+
+.specification-file__download:hover {
+    border-color: var(--light, #163760) var(--dark, #5a8fd4);
+}
+
+/* ETM блок цен */
+.store-prices-block.lvt-etm-store-offers {
+    box-shadow: var(--light, 0 4px 14px rgba(19, 55, 96, 0.06)) var(--dark, 0 4px 18px rgba(0, 0, 0, 0.28));
+}
+
+.store-prices-block.lvt-etm-store-offers .store-offers-table thead th {
+    background: var(--darkgrey_bg_black, #f8fafc);
+}
+
+.lvt-etm-store-offers__loading {
+    color: var(--lite_basic_text_black, #666);
+}
+
+.lvt-etm-store-offers__skeleton-line {
+    background: var(--light, linear-gradient(90deg, #eef2f6 25%, #f7f9fb 50%, #eef2f6 75%))
+        var(--dark, linear-gradient(90deg, #2a2a2a 25%, #343434 50%, #2a2a2a 75%));
+}
+
+.lvt-supplier-skeleton__line {
+    background: var(--light, linear-gradient(90deg, #eef2f6 25%, #f7f9fb 50%, #eef2f6 75%))
+        var(--dark, linear-gradient(90deg, #2a2a2a 25%, #343434 50%, #2a2a2a 75%));
+}

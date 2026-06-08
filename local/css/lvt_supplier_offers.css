@@ -1,0 +1,87 @@
+.lvt-supplier-offers {
+    margin-bottom: 1.5rem;
+}
+
+/* В правой колонке карточки (каталог /catalog/) */
+.lvt-supplier-offers--in-column {
+    margin: 0 0 1rem;
+    width: 100%;
+    min-width: 0;
+}
+
+.lvt-supplier-offers--in-column .lvt-supplier-offers__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    line-height: 1.3;
+}
+
+.lvt-supplier-offers--in-column .lvt-supplier-offers__loading {
+    font-size: 0.75rem;
+}
+
+.lvt-supplier-offers--in-column .lvt-supplier-offers__table-wrap {
+    margin: 0;
+}
+
+.lvt-supplier-offers--in-column .lvt-supplier-offers__table {
+    font-size: 0.7rem;
+}
+
+.lvt-supplier-offers--in-column .lvt-supplier-offers__table th,
+.lvt-supplier-offers--in-column .lvt-supplier-offers__table td {
+    padding: 0.35rem 0.4rem;
+}
+
+.lvt-supplier-offers--in-column .getchips-offers__add-basket {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+
+.lvt-supplier-offers__title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+}
+
+.lvt-supplier-offers__sub {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 1.25rem 0 0.5rem;
+}
+
+.lvt-supplier-offers__table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.lvt-supplier-offers__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+    margin-bottom: 0.25rem;
+}
+
+.lvt-supplier-offers__table th,
+.lvt-supplier-offers__table td {
+    border: 1px solid #e5e5e5;
+    padding: 0.45rem 0.5rem;
+    vertical-align: top;
+}
+
+.lvt-supplier-offers__muted {
+    font-size: 0.78rem;
+    color: #666;
+    margin: 0 0 0.75rem;
+}
+
+.getchips-offers__usd {
+    font-weight: 600;
+}
+
+.getchips-offers__rub-hint {
+    font-size: 0.72rem;
+    color: #777;
+    margin-top: 0.2rem;
+}

@@ -1,0 +1,9 @@
+; Добавить в конец секции [www] в /etc/php/8.3/fpm/pool.d/www.conf
+; (сайт lvt.market → Apache 8081 → php8.3-fpm pool www)
+;
+; Токен @lvtmarket_bot и чат менеджеров — те же, что в telegrambot/.env
+; Альтернатива без правки pool: local/php_interface/telegram_lead_config.php
+
+env[TELEGRAM_LEAD_BOT_TOKEN] = 8856124640:AAGn2qt9v9DyWr-ijDJ_lgE4H7UjXUfSR6M
+env[TELEGRAM_LEAD_CHAT_ID] = 399334751
+env[TELEGRAM_PROXY_URL] = http://LM8Efc73:7cvVyzHi@153.80.171.52:64504

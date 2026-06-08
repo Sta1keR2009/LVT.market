@@ -1,0 +1,30 @@
+<?php
+// Код обработчика (сокращён для размера)
+class OrderETMHandler {
+    private static $log_file;
+    private static $api;
+
+    public static function init() {
+        self::$log_file = $_SERVER['DOCUMENT_ROOT'] . '/api/logs/order_etm_integration_' . date('Y-m-d') . '.log';
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/api/classes/ETMAPI.php');
+        self::$api = new ETMAPI(false);
+    }
+
+    public static function onOrderAdd($event) {
+        self::init();
+        self::log("Тестовая запись", 'INFO');
+    }
+
+    private static function log($message, $level = 'INFO', $data = []) {
+        $log_dir = dirname(self::$log_file);
+        if (!file_exists($log_dir)) {
+            mkdir($log_dir, 0755, true);
+        }
+        $timestamp = date('Y-m-d H:i:s');
+        $log_entry = "[{$timestamp}] [{$level}] {$message}\n";
+        if (!empty($data)) {
+            $log_entry .= json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . "\n";
+        }
+        file_put_contents(self::$log_file, $log_entry, FILE_APPEND);
+    }
+}

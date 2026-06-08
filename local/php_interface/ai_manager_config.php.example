@@ -1,0 +1,8 @@
+<?php
+/**
+ * Скопируйте в ai_manager_config.php и задайте secret (тот же, что MANAGER_PANEL_SECRET / WIDGET_BRIDGE_INTERNAL_KEY в .env оркестратора).
+ */
+return [
+    'secret' => 'your-shared-secret-here',
+    'backend' => 'http://127.0.0.1:3847',
+];

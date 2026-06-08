@@ -1,0 +1,248 @@
+.lvt-delivery-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 6000;
+}
+
+.lvt-delivery-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.lvt-delivery-modal__dialog {
+    position: relative;
+    z-index: 1;
+    width: calc(100% - 32px);
+    max-width: 720px;
+    max-height: calc(100vh - 48px);
+    margin: 24px auto;
+    background: var(--card_bg_black);
+    border: 1px solid var(--stroke_black);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    color: var(--white_text_black);
+}
+
+.lvt-delivery-modal__head {
+    padding: 16px 48px 12px 20px;
+    border-bottom: 1px solid var(--stroke_black);
+}
+
+.lvt-delivery-modal__title {
+    margin: 0;
+    font-weight: 600;
+    color: var(--white_text_black);
+}
+
+.lvt-delivery-modal__body {
+    padding: 16px 20px 20px;
+    overflow: auto;
+    background: var(--darkerblack_bg_black);
+}
+
+.lvt-delivery-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    background: transparent;
+    color: var(--lite_basic_text_black);
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.lvt-delivery-modal__close:hover {
+    color: var(--white_text_black);
+}
+
+body.lvt-delivery-modal-open {
+    overflow: hidden;
+}
+
+.catapulto-delivery__headline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+}
+
+.catapulto-delivery__headline .catapulto-delivery__title {
+    margin: 0;
+}
+
+.catapulto-delivery {
+    padding: 0;
+}
+
+.catapulto-delivery__title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white_text_black);
+    margin: 0 0 6px;
+    line-height: 1.3;
+}
+
+.catapulto-delivery__subtitle {
+    font-size: 13px;
+    color: var(--lite_basic_text_black);
+    margin: 0 0 16px;
+    line-height: 1.5;
+}
+
+.catapulto-delivery__subtitle b {
+    color: var(--white_text_black);
+}
+
+.catapulto-delivery__pickup {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--stroke_black);
+    margin-bottom: 4px;
+}
+
+.catapulto-delivery__pickup-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white_text_black);
+}
+
+.catapulto-delivery__pickup-price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2cbe15;
+    white-space: nowrap;
+}
+
+.catapulto-delivery__operator {
+    margin-bottom: 4px;
+}
+
+.catapulto-delivery__operator-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white_text_black);
+    padding: 8px 0 4px;
+}
+
+.catapulto-delivery__tariff {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 6px 0 6px 16px;
+    border-bottom: 1px solid var(--stroke_black);
+}
+
+.catapulto-delivery__tariff:last-child {
+    border-bottom: none;
+}
+
+.catapulto-delivery__tariff-name {
+    font-size: 13px;
+    color: var(--white_text_black);
+    min-width: 140px;
+    flex-shrink: 0;
+}
+
+.catapulto-delivery__tariff-date {
+    font-size: 13px;
+    color: var(--lite_basic_text_black);
+    white-space: nowrap;
+}
+
+.catapulto-delivery__tariff-price {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white_text_black);
+    white-space: nowrap;
+    margin-left: auto;
+}
+
+.catapulto-delivery__footer {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid var(--stroke_black);
+}
+
+.catapulto-delivery__disclaimer {
+    font-size: 12px;
+    color: var(--lite_basic_text_black);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.catapulto-delivery__loader {
+    display: flex;
+    gap: 6px;
+    padding: 12px 0;
+}
+
+.catapulto-delivery__loader-bar {
+    width: 60px;
+    height: 12px;
+    background: var(--stroke_black);
+    border-radius: 3px;
+    animation: catapultoShimmer 1.4s ease-in-out infinite;
+}
+
+.catapulto-delivery__loader-bar:nth-child(2) {
+    animation-delay: 0.2s;
+    width: 100px;
+}
+
+.catapulto-delivery__loader-bar:nth-child(3) {
+    animation-delay: 0.4s;
+    width: 40px;
+}
+
+.catapulto-delivery__loader-text {
+    font-size: 13px;
+    color: var(--lite_basic_text_black);
+    margin: 0;
+}
+
+.catapulto-delivery__change-city {
+    color: var(--theme-base-color, #3d7ec9);
+}
+
+@keyframes catapultoShimmer {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .catapulto-delivery__title {
+        font-size: 18px;
+    }
+
+    .catapulto-delivery__tariff {
+        flex-wrap: wrap;
+        gap: 4px 8px;
+        padding: 8px 0 8px 12px;
+    }
+
+    .catapulto-delivery__tariff-name {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .catapulto-delivery__tariff-date {
+        flex: 1;
+    }
+
+    .catapulto-delivery__tariff-price {
+        margin-left: 0;
+    }
+
+    .catapulto-delivery__pickup {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+}

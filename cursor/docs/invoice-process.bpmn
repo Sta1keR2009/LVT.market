@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                   xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                   xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                   xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                   id="Definitions_InvoiceProcess"
+                   targetNamespace="http://lvtgroup.ru/invoice">
+  <bpmn:process id="Process_InvoiceIssuance" name="Выставление счёта после проверки менеджером" isExecutable="false">
+    <bpmn:documentation>Заказ оформляется на сайте Bitrix и попадает в МойСклад. Менеджер проверяет заказ в МойСклад, после проверки создаёт счёт покупателю (invoiceout). По вебхуку Bitrix получает событие, формирует/скачивает PDF, отправляет счёт клиенту на почту и отображает в личном кабинете.</bpmn:documentation>
+    <bpmn:startEvent id="StartEvent_OrderPlaced" name="Заказ оформлен на сайте">
+      <bpmn:outgoing>Flow_ToExport</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_ExportToMoySklad" name="Заказ выгружен в МойСклад">
+      <bpmn:documentation>Интеграция rbs.moysklad: заказ из Bitrix создаётся как customerorder в МойСклад</bpmn:documentation>
+      <bpmn:incoming>Flow_ToExport</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToManagerCheck</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_ManagerChecks" name="Проверка заказа менеджером в МойСклад">
+      <bpmn:documentation>Менеджер проверяет заказ в интерфейсе МойСклад: состав, цены, реквизиты</bpmn:documentation>
+      <bpmn:incoming>Flow_ToManagerCheck</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToGateway</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_CheckOk" name="Проверка пройдена?">
+      <bpmn:incoming>Flow_ToGateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_YesCreateInvoice</bpmn:outgoing>
+      <bpmn:outgoing>Flow_NoCorrection</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_CreateInvoiceMS" name="Создание счёта покупателю в МойСклад">
+      <bpmn:documentation>Менеджер создаёт документ «Счёт покупателю» (invoiceout) по заказу в МойСклад</bpmn:documentation>
+      <bpmn:incoming>Flow_YesCreateInvoice</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToWebhook</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Correction" name="Внесение исправлений в заказ">
+      <bpmn:documentation>При необходимости менеджер вносит правки в заказ в МойСклад и повторно проверяет</bpmn:documentation>
+      <bpmn:incoming>Flow_NoCorrection</bpmn:incoming>
+      <bpmn:outgoing>Flow_BackToCheck</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_WebhookReceived" name="Вебхук: Bitrix получил событие invoiceout">
+      <bpmn:documentation>МойСклад отправляет вебхук на hook.php (rbs.moysklad), тип entity: invoiceout, action: CREATE</bpmn:documentation>
+      <bpmn:incoming>Flow_ToWebhook</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToProcess</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_FindOrderAndPdf" name="Найти заказ Bitrix, получить/сформировать PDF счёта">
+      <bpmn:documentation>По customerOrder.externalCode найти заказ в Bitrix; скачать печатную форму из API МойСклад или сгенерировать PDF по шаблону</bpmn:documentation>
+      <bpmn:incoming>Flow_ToProcess</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToSave</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_SaveFileAndSend" name="Сохранить PDF к заказу, отправить письмо клиенту">
+      <bpmn:documentation>CFile::SaveFile, запись FILE_ID в свойство заказа (INVOICE_FILE_ID), CEvent::Send(SALE_INVOICE_READY) с вложением</bpmn:documentation>
+      <bpmn:incoming>Flow_ToSave</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_ClientReceived" name="Клиент получил счёт">
+      <bpmn:documentation>Письмо на email; счёт доступен для скачивания в личном кабинете на странице заказа</bpmn:documentation>
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_ToExport" sourceRef="StartEvent_OrderPlaced" targetRef="Task_ExportToMoySklad"/>
+    <bpmn:sequenceFlow id="Flow_ToManagerCheck" sourceRef="Task_ExportToMoySklad" targetRef="Task_ManagerChecks"/>
+    <bpmn:sequenceFlow id="Flow_ToGateway" sourceRef="Task_ManagerChecks" targetRef="Gateway_CheckOk"/>
+    <bpmn:sequenceFlow id="Flow_YesCreateInvoice" name="Да" sourceRef="Gateway_CheckOk" targetRef="Task_CreateInvoiceMS"/>
+    <bpmn:sequenceFlow id="Flow_NoCorrection" name="Нет" sourceRef="Gateway_CheckOk" targetRef="Task_Correction"/>
+    <bpmn:sequenceFlow id="Flow_BackToCheck" sourceRef="Task_Correction" targetRef="Task_ManagerChecks"/>
+    <bpmn:sequenceFlow id="Flow_ToWebhook" sourceRef="Task_CreateInvoiceMS" targetRef="Task_WebhookReceived"/>
+    <bpmn:sequenceFlow id="Flow_ToProcess" sourceRef="Task_WebhookReceived" targetRef="Task_FindOrderAndPdf"/>
+    <bpmn:sequenceFlow id="Flow_ToSave" sourceRef="Task_FindOrderAndPdf" targetRef="Task_SaveFileAndSend"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_SaveFileAndSend" targetRef="EndEvent_ClientReceived"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Invoice">
+    <bpmndi:BPMNPlane id="BPMNPlane_Invoice" bpmnElement="Process_InvoiceIssuance">
+      <bpmndi:BPMNShape id="StartEvent_OrderPlaced_di" bpmnElement="StartEvent_OrderPlaced">
+        <dc:Bounds x="152" y="202" width="36" height="36"/>
+        <bpmndi:BPMNLabel><dc:Bounds x="120" y="245" width="100" height="40"/></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ExportToMoySklad_di" bpmnElement="Task_ExportToMoySklad">
+        <dc:Bounds x="260" y="170" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ManagerChecks_di" bpmnElement="Task_ManagerChecks">
+        <dc:Bounds x="430" y="170" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_CheckOk_di" bpmnElement="Gateway_CheckOk">
+        <dc:Bounds x="585" y="185" width="50" height="50"/>
+        <bpmndi:BPMNLabel><dc:Bounds x="555" y="242" width="110" height="27"/></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CreateInvoiceMS_di" bpmnElement="Task_CreateInvoiceMS">
+        <dc:Bounds x="700" y="170" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Correction_di" bpmnElement="Task_Correction">
+        <dc:Bounds x="585" y="310" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_WebhookReceived_di" bpmnElement="Task_WebhookReceived">
+        <dc:Bounds x="870" y="170" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_FindOrderAndPdf_di" bpmnElement="Task_FindOrderAndPdf">
+        <dc:Bounds x="1040" y="170" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SaveFileAndSend_di" bpmnElement="Task_SaveFileAndSend">
+        <dc:Bounds x="1210" y="170" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_ClientReceived_di" bpmnElement="EndEvent_ClientReceived">
+        <dc:Bounds x="1380" y="202" width="36" height="36"/>
+        <bpmndi:BPMNLabel><dc:Bounds x="1345" y="245" width="106" height="27"/></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_ToExport_di" bpmnElement="Flow_ToExport">
+        <di:waypoint x="188" y="220"/>
+        <di:waypoint x="260" y="210"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToManagerCheck_di" bpmnElement="Flow_ToManagerCheck">
+        <di:waypoint x="360" y="210"/>
+        <di:waypoint x="430" y="210"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToGateway_di" bpmnElement="Flow_ToGateway">
+        <di:waypoint x="530" y="210"/>
+        <di:waypoint x="585" y="210"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_YesCreateInvoice_di" bpmnElement="Flow_YesCreateInvoice">
+        <di:waypoint x="610" y="210"/>
+        <di:waypoint x="700" y="210"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_NoCorrection_di" bpmnElement="Flow_NoCorrection">
+        <di:waypoint x="610" y="235"/>
+        <di:waypoint x="610" y="310"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_BackToCheck_di" bpmnElement="Flow_BackToCheck">
+        <di:waypoint x="635" y="350"/>
+        <di:waypoint x="480" y="350"/>
+        <di:waypoint x="480" y="250"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToWebhook_di" bpmnElement="Flow_ToWebhook">
+        <di:waypoint x="800" y="210"/>
+        <di:waypoint x="870" y="210"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToProcess_di" bpmnElement="Flow_ToProcess">
+        <di:waypoint x="970" y="210"/>
+        <di:waypoint x="1040" y="210"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToSave_di" bpmnElement="Flow_ToSave">
+        <di:waypoint x="1140" y="210"/>
+        <di:waypoint x="1210" y="210"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToEnd_di" bpmnElement="Flow_ToEnd">
+        <di:waypoint x="1310" y="210"/>
+        <di:waypoint x="1380" y="220"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

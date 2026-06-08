@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                   xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                   xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                   xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                   id="Definitions_DeliveryProcess"
+                   targetNamespace="http://lvtgroup.ru/delivery">
+  <bpmn:process id="Process_DeliveryWithLytkarino" name="Доставка заказа с консолидацией в Лыткарино" isExecutable="false">
+    <bpmn:documentation>Заказ может комплектоваться с разных складов. Сначала поставка на склад в Лыткарино; отправка ТК — только после полной сборки. Итоговый срок = max(сроки поставки на Лыткарино) + срок доставки ТК.</bpmn:documentation>
+    <bpmn:startEvent id="StartEvent_OrderPlaced" name="Заказ оформлен">
+      <bpmn:outgoing>Flow_ToFork</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:parallelGateway id="Gateway_ForkByWarehouse" name="Разделение по складам">
+      <bpmn:incoming>Flow_ToFork</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToWarehouse1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ToWarehouse2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ToWarehouseN</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:task id="Task_SupplyWarehouse1" name="Поставка позиций склада 1 в Лыткарино">
+      <bpmn:incoming>Flow_ToWarehouse1</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToJoin1</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_SupplyWarehouse2" name="Поставка позиций склада 2 в Лыткарино">
+      <bpmn:incoming>Flow_ToWarehouse2</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToJoin2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_SupplyWarehouseN" name="Поставка позиций склада N в Лыткарино">
+      <bpmn:incoming>Flow_ToWarehouseN</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToJoinN</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:parallelGateway id="Gateway_JoinAllArrived" name="Все позиции на складе Лыткарино">
+      <bpmn:incoming>Flow_ToJoin1</bpmn:incoming>
+      <bpmn:incoming>Flow_ToJoin2</bpmn:incoming>
+      <bpmn:incoming>Flow_ToJoinN</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToAssembly</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:task id="Task_Assembly" name="Сборка заказа на складе Лыткарино">
+      <bpmn:incoming>Flow_ToAssembly</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToHandover</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_HandoverToCarrier" name="Передача отправления транспортной компании">
+      <bpmn:incoming>Flow_ToHandover</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToDelivery</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_CarrierDelivery" name="Доставка ТК до города получателя">
+      <bpmn:documentation>Этап, отображаемый в калькуляторе: тарифы и сроки от Лыткарино (DPD, СДЭК и т.д.)</bpmn:documentation>
+      <bpmn:incoming>Flow_ToDelivery</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_OrderReceived" name="Заказ получен">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_ToFork" sourceRef="StartEvent_OrderPlaced" targetRef="Gateway_ForkByWarehouse"/>
+    <bpmn:sequenceFlow id="Flow_ToWarehouse1" sourceRef="Gateway_ForkByWarehouse" targetRef="Task_SupplyWarehouse1"/>
+    <bpmn:sequenceFlow id="Flow_ToWarehouse2" sourceRef="Gateway_ForkByWarehouse" targetRef="Task_SupplyWarehouse2"/>
+    <bpmn:sequenceFlow id="Flow_ToWarehouseN" sourceRef="Gateway_ForkByWarehouse" targetRef="Task_SupplyWarehouseN"/>
+    <bpmn:sequenceFlow id="Flow_ToJoin1" sourceRef="Task_SupplyWarehouse1" targetRef="Gateway_JoinAllArrived"/>
+    <bpmn:sequenceFlow id="Flow_ToJoin2" sourceRef="Task_SupplyWarehouse2" targetRef="Gateway_JoinAllArrived"/>
+    <bpmn:sequenceFlow id="Flow_ToJoinN" sourceRef="Task_SupplyWarehouseN" targetRef="Gateway_JoinAllArrived"/>
+    <bpmn:sequenceFlow id="Flow_ToAssembly" sourceRef="Gateway_JoinAllArrived" targetRef="Task_Assembly"/>
+    <bpmn:sequenceFlow id="Flow_ToHandover" sourceRef="Task_Assembly" targetRef="Task_HandoverToCarrier"/>
+    <bpmn:sequenceFlow id="Flow_ToDelivery" sourceRef="Task_HandoverToCarrier" targetRef="Task_CarrierDelivery"/>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_CarrierDelivery" targetRef="EndEvent_OrderReceived"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Delivery">
+    <bpmndi:BPMNPlane id="BPMNPlane_Delivery" bpmnElement="Process_DeliveryWithLytkarino">
+      <bpmndi:BPMNShape id="StartEvent_OrderPlaced_di" bpmnElement="StartEvent_OrderPlaced">
+        <dc:Bounds x="152" y="202" width="36" height="36"/>
+        <bpmndi:BPMNLabel><dc:Bounds x="139" y="245" width="62" height="27"/></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_ForkByWarehouse_di" bpmnElement="Gateway_ForkByWarehouse">
+        <dc:Bounds x="235" y="195" width="50" height="50"/>
+        <bpmndi:BPMNLabel><dc:Bounds x="210" y="252" width="100" height="27"/></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SupplyWarehouse1_di" bpmnElement="Task_SupplyWarehouse1">
+        <dc:Bounds x="332" y="30" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SupplyWarehouse2_di" bpmnElement="Task_SupplyWarehouse2">
+        <dc:Bounds x="332" y="170" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SupplyWarehouseN_di" bpmnElement="Task_SupplyWarehouseN">
+        <dc:Bounds x="332" y="310" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_JoinAllArrived_di" bpmnElement="Gateway_JoinAllArrived">
+        <dc:Bounds x="475" y="195" width="50" height="50"/>
+        <bpmndi:BPMNLabel><dc:Bounds x="450" y="252" width="100" height="40"/></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Assembly_di" bpmnElement="Task_Assembly">
+        <dc:Bounds x="572" y="170" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_HandoverToCarrier_di" bpmnElement="Task_HandoverToCarrier">
+        <dc:Bounds x="712" y="170" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CarrierDelivery_di" bpmnElement="Task_CarrierDelivery">
+        <dc:Bounds x="852" y="170" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_OrderReceived_di" bpmnElement="EndEvent_OrderReceived">
+        <dc:Bounds x="992" y="202" width="36" height="36"/>
+        <bpmndi:BPMNLabel><dc:Bounds x="979" y="245" width="62" height="27"/></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_ToFork_di" bpmnElement="Flow_ToFork">
+        <di:waypoint x="188" y="220"/>
+        <di:waypoint x="235" y="220"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToWarehouse1_di" bpmnElement="Flow_ToWarehouse1">
+        <di:waypoint x="260" y="195"/>
+        <di:waypoint x="260" y="70"/>
+        <di:waypoint x="332" y="70"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToWarehouse2_di" bpmnElement="Flow_ToWarehouse2">
+        <di:waypoint x="285" y="220"/>
+        <di:waypoint x="382" y="220"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToWarehouseN_di" bpmnElement="Flow_ToWarehouseN">
+        <di:waypoint x="260" y="245"/>
+        <di:waypoint x="260" y="350"/>
+        <di:waypoint x="332" y="350"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToJoin1_di" bpmnElement="Flow_ToJoin1">
+        <di:waypoint x="432" y="70"/>
+        <di:waypoint x="500" y="70"/>
+        <di:waypoint x="500" y="195"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToJoin2_di" bpmnElement="Flow_ToJoin2">
+        <di:waypoint x="432" y="210"/>
+        <di:waypoint x="475" y="210"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToJoinN_di" bpmnElement="Flow_ToJoinN">
+        <di:waypoint x="432" y="350"/>
+        <di:waypoint x="500" y="350"/>
+        <di:waypoint x="500" y="245"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToAssembly_di" bpmnElement="Flow_ToAssembly">
+        <di:waypoint x="525" y="220"/>
+        <di:waypoint x="572" y="210"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToHandover_di" bpmnElement="Flow_ToHandover">
+        <di:waypoint x="672" y="210"/>
+        <di:waypoint x="712" y="210"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToDelivery_di" bpmnElement="Flow_ToDelivery">
+        <di:waypoint x="812" y="210"/>
+        <di:waypoint x="852" y="210"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToEnd_di" bpmnElement="Flow_ToEnd">
+        <di:waypoint x="952" y="210"/>
+        <di:waypoint x="992" y="220"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

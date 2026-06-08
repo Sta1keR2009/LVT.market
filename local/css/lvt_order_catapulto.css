@@ -1,0 +1,201 @@
+.lvt-order-catapulto {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--stroke_black, #ededed);
+  border-radius: var(--theme-outer-border-radius, 12px);
+  background: var(--darkerblack_bg_black, #f8f8f8);
+}
+
+.lvt-order-catapulto__title {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--white_text_black, #222);
+}
+
+.lvt-order-catapulto__tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.lvt-order-catapulto__tab {
+  border: 1px solid var(--stroke_black, #ddd);
+  background: var(--black_bg_black, #fff);
+  color: var(--white_text_black, #222);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.lvt-order-catapulto__tab.is-active {
+  border-color: var(--theme-base-color, #1a335a);
+  background: var(--theme-base-color, #1a335a);
+  color: #fff;
+}
+
+.lvt-order-catapulto__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lvt-order-catapulto__item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 16px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--stroke_black, #e5e5e5);
+  border-radius: 10px;
+  background: var(--black_bg_black, #fff);
+  cursor: pointer;
+  text-align: left;
+}
+
+.lvt-order-catapulto__item.is-selected {
+  border-color: var(--theme-base-color, #1a335a);
+  box-shadow: 0 0 0 1px var(--theme-base-color, #1a335a);
+}
+
+.lvt-order-catapulto__item-main {
+  min-width: 0;
+}
+
+.lvt-order-catapulto__operator {
+  font-weight: 600;
+  color: var(--white_text_black, #222);
+}
+
+.lvt-order-catapulto__rate {
+  font-size: 14px;
+  color: var(--lite_basic_text_black, #666);
+}
+
+.lvt-order-catapulto__meta {
+  font-size: 13px;
+  color: var(--lite_basic_text_black, #666);
+  margin-top: 4px;
+}
+
+.lvt-order-catapulto__price {
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--white_text_black, #222);
+}
+
+.lvt-order-catapulto__pvz-field {
+  margin-top: 12px;
+}
+
+.lvt-order-catapulto__pvz-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.lvt-order-catapulto__pvz-field input {
+  width: 100%;
+}
+
+.lvt-order-catapulto__hint,
+.lvt-order-catapulto__loader,
+.lvt-order-catapulto__empty {
+  font-size: 14px;
+  color: var(--lite_basic_text_black, #666);
+}
+
+.lvt-order-catapulto__loader {
+  padding: 8px 0;
+}
+
+#bx-soa-delivery .bx-soa-pp-company-item.lvt-catapulto-delivery-hidden {
+  display: none !important;
+}
+
+#bx-soa-delivery .bx-soa-pp-company-item.lvt-catapulto-delivery-pickup-mode .bx-soa-pp-delivery-calculate {
+  display: none;
+}
+
+#bx-soa-delivery .bx-soa-pp-company-item.lvt-catapulto-delivery-pickup-mode .bx-soa-pp-company-label > span:first-child {
+  font-weight: 600;
+}
+
+.lvt-order-catapulto__pvz-map-row {
+  margin-bottom: 10px;
+}
+
+.lvt-order-catapulto__pvz-map-btn {
+  width: 100%;
+  max-width: 320px;
+}
+
+.lvt-order-catapulto__pvz-selected {
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  background: var(--darkerblack_bg_black, #f5f7fa);
+  border-radius: var(--border-radius, 8px);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.lvt-order-catapulto__pvz-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.lvt-order-catapulto__address-field {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border: 1px dashed var(--stroke_black, #ddd);
+  border-radius: 10px;
+  background: var(--black_bg_black, #fff);
+}
+
+.lvt-order-catapulto__address-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--white_text_black, #222);
+}
+
+.lvt-order-catapulto__address-selected {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--white_text_black, #222);
+}
+
+.lvt-order-catapulto__address-scroll-btn {
+  margin-top: 8px;
+}
+
+#bx-soa-delivery .ADDRESS.lvt-order-address-highlight,
+#bx-soa-delivery .ADDRESS.lvt-order-address-highlight textarea,
+#bx-soa-delivery .ADDRESS.lvt-order-address-highlight input {
+  box-shadow: 0 0 0 2px var(--theme-base-color, #1a335a);
+  border-radius: 8px;
+}
+
+.lvt-catapulto-pvz-widget-host {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+body.lvt-catapulto-pvz-open .lvt-catapulto-pvz-widget-host {
+  display: block;
+}
+
+body.lvt-catapulto-pvz-open #catapulto-widget {
+  position: relative;
+  z-index: 100001;
+}
+
+.lvt-catapulto-pvz-widget-host .ctpt-widget {
+  margin: 24px auto;
+  max-height: calc(100vh - 48px);
+}
