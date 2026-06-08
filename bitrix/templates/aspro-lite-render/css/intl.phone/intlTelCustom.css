@@ -1,0 +1,104 @@
+body .iti {
+  display: block;
+}
+body .iti__flag-container {
+  opacity: 1;
+  z-index: 2;
+}
+.iti .iti__country-list {
+  background: var(--card_bg_black);
+  border-color:var(--stroke_black);
+  color: var(--white_text_black);
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  z-index: 101;
+  max-height: 250px;
+  font-size: 0.875rem;
+  max-width: 396px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.1);
+  border-radius: 2px;
+}
+.popup .iti .iti__country-list {
+  max-height: 150px;
+}
+.form .iti .iti__country-list {
+  border-radius: 8px;
+  border-radius: var(--theme-button-border-radius);
+}
+.form .iti .iti__country-list {
+
+}
+.iti .iti__country-list::-webkit-scrollbar {
+  width: 8px;
+}
+.iti .iti__country-list::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: #999;
+  border: 2px solid #fff;
+  border-color: var(--card_bg_black);
+}
+.iti .iti__country-list::-webkit-scrollbar-track {
+  border-radius: 8px;
+}
+.iti__country-list .iti__country {
+  margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.iti__country.iti__highlight {
+  background-color: var(--darkgrey_bg_black);
+}
+.iti__country.iti__highlight .iti__dial-code {
+  color: #222;
+  color: var(--white_text_black);
+}
+.iti__country-list .iti__divider {
+  margin-top: 0px;
+  margin-left: 0px;
+  border-bottom-color:var(--stroke_black);
+}
+.iti__country-list .iti__country:before,
+.iti__country-list .iti__divider:before {
+  display: none;
+}
+
+.iti.iti--allow-dropdown .iti__flag-container ~ input[type="tel"],
+.iti.iti--allow-dropdown .iti__flag-container ~ input[type="text"] {
+  padding-left: 60px;
+}
+.iti:not(.iti--allow-dropdown) .iti__flag-container ~ input[type="tel"],
+.iti:not(.iti--allow-dropdown) .iti__flag-container ~ input[type="text"] {
+  padding-right: 40px;
+}
+.iti .iti__selected-flag {
+  padding: 0 10px 0 14px;
+  background: var(--darkerblack_bg_black);
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+.form .iti .iti__selected-flag {
+  border-radius: 8px 0 0 8px;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+.iti.iti--allow-dropdown .iti__flag-container:hover .iti__selected-flag {
+  background-color: var(--card_bg_black);
+}
+.iti .iti__arrow {
+  border-top-color: var(--white_text_black);
+  border-bottom-color: var(--white_text_black);
+}
+.iti label.error {
+  top: -20px;
+}
+
+/* fix mobile template */
+.iti__flag {
+  display: block;
+}
+@media (max-width: 500px) {
+  .iti__country-list {
+      width: calc(100vw - 32px);
+  }
+  .popup .iti__country-list {
+      width: calc(100vw - 50px);
+  }
+}

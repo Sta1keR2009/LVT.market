@@ -1,0 +1,27 @@
+{
+  "name": "ipol/core.catapulto",
+  "description": "Library with classes for CMS-Application communications",
+  "version": "1.7.0",
+  "minimum-stability": "stable",
+  "license": "AFL-3.0",
+  "authors": [
+    {
+      "name": "IPOL",
+      "email": "support@ipol.ru",
+      "homepage": "https://ipol.ru",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "support@ipol.ru"
+  },
+  "require": {
+    "php": "^7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ipol\\Catapulto\\Core\\": ""
+    }
+  }
+}
+

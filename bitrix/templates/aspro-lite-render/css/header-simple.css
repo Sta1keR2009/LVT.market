@@ -1,0 +1,14 @@
+/* HEADER SIMPLE */
+.header__inner {
+  padding-bottom: 13px;
+}
+.header__main-item--centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+header:not(.header--with_regions) .header__main-inner {
+  justify-content: flex-end;
+}

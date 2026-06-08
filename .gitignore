@@ -2,8 +2,14 @@
 /bitrix/*
 !/bitrix/php_interface/
 !/bitrix/templates/
+/bitrix/templates/*
+!/bitrix/templates/aspro-lite-render/
+/bitrix/templates/aspro-lite-render/**/_backup_*
+/bitrix/templates/aspro-lite-render/**/*_backup*
+/bitrix/templates/aspro-lite-render/**/*.bak
 !/bitrix/components/
 !/bitrix/modules/
+!/bitrix/modules/catapulto.delivery/
 /bitrix/modules/main/
 /bitrix/modules/iblock/
 /bitrix/modules/sale/
@@ -156,3 +162,16 @@ Thumbs.db
 # API ETM runtime
 /api_etm_ai/logs/
 /api_etm_ai/upload/
+
+# API runtime (логи, дампы, архивы)
+/api/logs/
+/api/data/
+/api/duplicates/
+/api/*.tar
+/apipromelect.tar
+/api-digi/logs/
+/api-digi/upload/
+/api-digi/cache/
+/api_etm/logs/
+/getchips/storage/
+/getchips/bootstrap/cache/

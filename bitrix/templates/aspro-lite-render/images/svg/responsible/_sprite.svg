@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" class="hidden">
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 26" id="desktop">
+    <path d="M12 26H4a4 4 0 01-4-4V4a4 4 0 014-4h8a4 4 0 014 4v18a4 4 0 01-4 4zm2-22a2 2 0 00-2-2 1 1 0 01-1 1H5a1 1 0 01-1-1 2 2 0 00-2 2v18a2 2 0 002 2h8a2 2 0 002-2V4z" fill="#333" fill-rule="evenodd"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 26" id="mobile">
+    <path d="M27 21H16v3h5a1 1 0 110 2H9a1 1 0 010-2h5v-3H3a3 3 0 01-3-3V3a3 3 0 013-3h24a3 3 0 013 3v15a3 3 0 01-3 3zm1-18a1 1 0 00-1-1H3a1 1 0 00-1 1v15a1 1 0 001 1h24a1 1 0 001-1V3z" fill="#333" fill-rule="evenodd"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 26" id="tablet">
+    <path d="M0 22V4a4 4 0 014-4h14a4 4 0 014 4v18a4 4 0 01-4 4H4a4 4 0 01-4-4zm18 2a2 2 0 002-2V4a2 2 0 00-2-2H4a2 2 0 00-2 2v18a2 2 0 002 2h14zM10 3.5a.5.5 0 01.5-.5h1a.5.5 0 110 1h-1a.5.5 0 01-.5-.5z" fill="#003" fill-rule="evenodd"></path>
+  </symbol>
+</svg>

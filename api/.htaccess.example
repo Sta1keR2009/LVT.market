@@ -1,0 +1,36 @@
+# Пример .htaccess для защиты API скриптов
+# Скопируйте этот файл в .htaccess и настройте под ваши нужды
+
+# ВАРИАНТ 1: Разрешить доступ только с localhost (для cron задач)
+<FilesMatch "\.php$">
+    Order Deny,Allow
+    Deny from all
+    Allow from 127.0.0.1
+    Allow from ::1
+    # Добавьте IP вашего сервера или внутренней сети
+    # Allow from 10.0.0.0/8
+    # Allow from 192.168.0.0/16
+</FilesMatch>
+
+# ВАРИАНТ 2: HTTP Basic Authentication (раскомментируйте если нужно)
+# <FilesMatch "\.php$">
+#     AuthType Basic
+#     AuthName "API Access Required"
+#     AuthUserFile /var/www/www-root/data/www/lvtgroup.ru/.htpasswd
+#     Require valid-user
+# </FilesMatch>
+
+# Запретить доступ к конфигурационным и лог файлам
+<FilesMatch "\.(json|log|config|ini|txt)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Запретить directory listing
+Options -Indexes
+
+# Защита от просмотра исходного кода (на всякий случай)
+<FilesMatch "\.(php|inc|conf)$">
+    # Если файл вызывается напрямую не через CLI, запретить
+    # Это дополнительная защита, основная проверка должна быть в PHP
+</FilesMatch>

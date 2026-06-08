@@ -1,0 +1,20 @@
+.doc-list-inner__section {
+  margin-top: 41px;
+}
+.doc-list-inner .doc-list-inner__section:first-child {
+  margin-top: 0;
+}
+.doc-list-inner__section-content {
+  margin-bottom: 40px;
+}
+.doc-list-inner__section-title {
+  color: #333;
+  color: var(--white_text_black);
+  margin-bottom: 13px;
+}
+@media (min-width: 601px) {
+  .doc-list-inner--view-list .doc-list-inner__content--with-icon .doc-list-inner__bottom,
+  .doc-list-inner--view-list .doc-list-inner__content--with-icon .doc-list-inner__top {
+    padding-right: 50px;
+  }
+}

@@ -1,0 +1,1 @@
+<?\TSolution\Extensions::init(['sale_linked']);?>

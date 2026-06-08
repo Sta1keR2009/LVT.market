@@ -1,0 +1,12 @@
+{
+    "start_time": "2026-04-28 00:00:01",
+    "total_received_from_api": 102,
+    "total_processed": 16,
+    "total_created": 5,
+    "total_updated": 95,
+    "total_errors": 86,
+    "memory_peak": 67.099999999999994,
+    "end_time": "2026-04-28 00:00:35",
+    "batches_processed": 2,
+    "last_item_id": null
+}

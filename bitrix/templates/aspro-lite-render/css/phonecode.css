@@ -1,0 +1,46 @@
+/* phone code */
+.form--send-sms .phone_code input[type="text"] {
+  font-size: 1.5rem;
+  letter-spacing: calc(1em * 0.44);
+}
+.form--send-sms .phone_code > label {
+  display: none;
+}
+.form--send-sms .backlink {
+  font-size: 0.8125rem;
+  line-height: calc(1em + 5px);
+  margin: 4px 0 24px 0;
+  display: block;
+}
+.form.form--send-sms .form-body {
+  padding-bottom: 0;
+}
+
+/* BX.PhoneAuth */
+#bx_register_resend,
+#bx_register_error,
+#bx_chpass_resend,
+#bx_chpass_error,
+#bx_profile_resend,
+#bx_profile_error,
+div[id^="bx_auth_resend"],
+div[id^="bx_auth_error"],
+div[id^="bx_one_click_register_resend"],
+div[id^="bx_one_click_register_error"] {
+  font-size: .8125rem;
+  line-height: calc(1em + 3px);
+  margin: 28px 0 0 0;
+}
+div[id^="bx_auth_resend"],
+div[id^="bx_auth_error"],
+div[id^="bx_one_click_register_resend"],
+div[id^="bx_one_click_register_error"] {
+  text-align: center;
+}
+@media (max-width: 600px) {
+  div[id^="bx_auth_resend"],
+  div[id^="bx_auth_error"] {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

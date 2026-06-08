@@ -1,0 +1,12 @@
+.sale-personal-section-index-block-name {
+  margin: 0;
+}
+.sale-personal-section-account-sub-header {
+  margin-top: 40px;
+}
+.sale-personal-section-row-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-flow: row wrap;
+}

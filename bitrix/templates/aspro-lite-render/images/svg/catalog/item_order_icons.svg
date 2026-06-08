@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" class="hidden">
+    <symbol viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" id="delivery-16-15">
+        <circle cx="4" cy="12" r="2" stroke-width="2"/>
+        <circle cx="12" cy="12" r="2" stroke-width="2"/>
+        <path d="M9 4H11.9296C12.5983 4 13.2228 4.3342 13.5937 4.8906L14.6641 6.49615C14.8831 6.82469 15 7.2107 15 7.60555V11C15 11.5523 14.5523 12 14 12V12" stroke-width="2" stroke-linecap="round"/>
+        <path d="M2 12V12C1.44772 12 1 11.5523 1 11V3C1 1.89543 1.89543 1 3 1H7C8.10457 1 9 1.89543 9 3V7M6 12H10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" id="valet-16-16">
+        <path d="M1 5H12C13.6569 5 15 6.34315 15 8V12C15 13.6569 13.6569 15 12 15H4C2.34315 15 1 13.6569 1 12V5Z" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M12 1H4C2.34315 1 1 2.34315 1 4V12" stroke-width="2" stroke-linecap="round"/>
+        <path d="M15 10H10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg" id="gift-16-17">
+        <path d="M1 7C1 5.89543 1.89543 5 3 5H13C14.1046 5 15 5.89543 15 7V7C15 8.10457 14.1046 9 13 9H3C1.89543 9 1 8.10457 1 7V7Z" stroke-width="2"/>
+        <path d="M8 5V16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8 3V5H10C11.1046 5 12 4.10457 12 3C12 1.89543 11.1046 1 10 1C8.89543 1 8 1.89543 8 3Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8 3V5H6C4.89543 5 4 4.10457 4 3C4 1.89543 4.89543 1 6 1C7.10457 1 8 1.89543 8 3Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2 9V14C2 15.1046 2.89543 16 4 16H12C13.1046 16 14 15.1046 14 14V9" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg" id="bell-14-16">
+        <path d="M11 5C11 2 8.5 1 7 1C5.5 1 3 2 3 5C3 9 1.66667 10.6667 1 12H13C12.3333 11 11 9 11 5Z" fill="none" stroke-width="2" stroke-linejoin="round"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 14H9C9 15.1046 8.10457 16 7 16C5.89543 16 5 15.1046 5 14Z" />
+    </symbol>
+
+    <symbol viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" id="attention-16-16">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 7C0 3.13401 3.13401 0 7 0H9C12.866 0 16 3.13401 16 7V9C16 12.866 12.866 16 9 16H7C3.13401 16 0 12.866 0 9V7ZM7 2C4.23858 2 2 4.23858 2 7V9C2 11.7614 4.23858 14 7 14H9C11.7614 14 14 11.7614 14 9V7C14 4.23858 11.7614 2 9 2H7ZM8 12C8.55229 12 9 11.5523 9 11V8C9 7.44772 8.55229 7 8 7C7.44772 7 7 7.44772 7 8V11C7 11.5523 7.44772 12 8 12ZM8 6C7.44772 6 7 5.55228 7 5C7 4.44772 7.44772 4 8 4C8.55229 4 9 4.44772 9 5C9 5.55228 8.55229 6 8 6Z" />
+    </symbol>
+</svg>

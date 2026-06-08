@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="5" height="3" viewBox="0 0 5 3">
+  <defs>
+    <style>
+      .lcls-1 {
+        fill: #222;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path class="lcls-1" d="M0,2.594H5V3H0V2.594ZM0,2.6H5L2.5,0Z"/>
+</svg>

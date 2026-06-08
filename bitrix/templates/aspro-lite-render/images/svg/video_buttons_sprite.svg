@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" class="hidden">
+    <symbol viewBox="0 0 13 13" id="video-play">
+        <path d="M0 13V0L13 6.5L0 13Z"/>
+    </symbol>
+
+    <symbol viewBox="0 0 13 13" id="video-pause">
+        <path d="M0 13V0H4V13H0Z"/>
+        <path d="M9 13V0H13V13H9Z"/>
+    </symbol>
+</svg>

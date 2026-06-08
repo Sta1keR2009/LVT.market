@@ -1,0 +1,1 @@
+<?$arResult = TSolution::getChilds($arResult);?>

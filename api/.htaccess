@@ -1,0 +1,38 @@
+# Защита API скриптов
+# Разрешить выполнение PHP файлов только с localhost (для cron задач)
+
+# ВРЕМЕННО: разрешаем доступ к debug_promelect_item.php со всех IP
+<Files "debug_promelect_item.php">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+<Files "dashboard.php">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+<FilesMatch "\.php$">
+    Order Deny,Allow
+    Deny from all
+    Allow from 127.0.0.1
+    Allow from ::1
+    # Если нужно разрешить доступ с определенных IP, раскомментируйте:
+    # Allow from 10.0.0.0/8
+    # Allow from 192.168.0.0/16
+</FilesMatch>
+ 
+# Запретить доступ к конфигурационным и лог файлам
+<FilesMatch "\.(json|log|config|ini|txt|md)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Запретить directory listing
+Options -Indexes
+
+# Защита от просмотра исходного кода
+<FilesMatch "\.(inc|conf|bak|back)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>

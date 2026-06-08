@@ -1,0 +1,91 @@
+.sale-list__item {
+  position: relative;
+  overflow: hidden;
+}
+.sale-list__item-image-wrapper {
+  position: relative;
+  padding-top: 67%;
+}
+.sale-list__item-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.bx-ie .sale-list__item-text-top-part {
+  flex-basis: auto;
+}
+.sale-list__item-preview-wrapper {
+  margin-top: 9px;
+}
+.sale-list__item-text-wrapper {
+  padding: 15px 16px 0;
+}
+.sale-list__item-link--absolute {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 2;
+}
+.sale-list__item-text-bottom-part {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.sale-list__item-period {
+  position: relative;
+}
+
+.sale-list__item-period .svg {
+  position: absolute;
+  left: 0px;
+  top: 5px;
+}
+.sale-list__item-period-date {
+  display: block;
+}
+
+/*sticker*/
+.sale-list__item .sale-list__item-sticker-value {
+  vertical-align: top;
+  margin: 0 4px 0 0;
+  font-size: 12px;
+  line-height: 15px;
+  line-height: var(--sticker-height);
+  display: inline-flex;
+  padding: 1px 5px 1px 4px;
+}
+.sale-list__item-sticker {
+  position: absolute;
+  font-size: 0px;
+  line-height: 0px;
+  z-index: 2;
+  bottom: 20px;
+  left: 16px;
+}
+/**/
+
+@media (max-width: 600px) {
+  .sale-list__item-preview-wrapper {
+    font-size: 13px;
+    line-height: 20px;
+    margin-bottom: 15px;
+  }
+  .sale-list__item-sticker {
+    bottom: 16px;
+    left: 16px;
+  }
+}
+@media (max-width: 500px) {
+  .grid-list--normal .sale-list__wrapper {
+    width: 100%;
+  }
+}

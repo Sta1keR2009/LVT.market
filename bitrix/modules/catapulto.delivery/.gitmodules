@@ -1,0 +1,10 @@
+[submodule "classes/lib/Api"]
+	path = classes/lib/Api
+	url = git@bitbucket.org:ipol-catapulto/api.git
+[submodule "classes/lib/Catapulto"]
+	path = classes/lib/Catapulto
+	url = git@bitbucket.org:ipol-catapulto/catapulto.git
+[submodule "classes/lib/Core"]
+	path = classes/lib/Core
+	url = git@bitbucket.org:ipol-core/core.git
+	branch = catapulto

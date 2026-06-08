@@ -1,0 +1,1 @@
+<?php require_once $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/catapulto.delivery/admin/catapulto_delivery_options.php';?>

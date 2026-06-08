@@ -1,0 +1,76 @@
+Уважаемый клиент!
+Информируем вас о том, что мы изменили ссылку на доступ к АПИ. При этом мы максимально постарались сохранить уже используемый вами формат ответа и запроса.
+Направляем вам инструкцию для подключения к АПИ
+Пример запроса.curl --location 'https://api.client-service.getchips.ru/client/api/gh/v1/search/partnumber?input=BAV99W.115&qty=1&token=your_secret_token' \
+--header 'Accept: application/json'
+где
+1. input - парт-номер
+2. qty — количество
+3. token - ваш токен
+Описание атрибутов
+Наименование
+Описание атрибута
+"title"
+Парт-номер
+"quantity"
+Количество
+"currency"
+Валюта всегда USD
+"sPack"
+Норма упаковки
+"donorID"
+Идентификатор поставщика
+"donor"
+Наименование поставщика
+"folddivision"
+Кратность
+"minq"
+Минимальное количество
+"brand"
+Производитель
+"quantity"
+Количество товара
+"price"
+Цена за количество товара в USD
+"summ"
+Сумма "quantity" * "price"  в USD
+"orderdays"
+Количество дней доставки
+"price"
+Цена за минимальное количество
+"eQuantity"
+Минимальное количество для заказа
+"search_word"
+Поисковая строка в нижнем регистре
+Пример ответа в формате json{
+"data":[
+{
+"title":"BAV99W,115",
+"quantity":1,
+"sPack":3000,
+"donorID":null,
+"donor":"Verical",
+"folddivision":3000,
+"minq":3000,
+"brand":"Nexperia",
+"price":0.0136,
+"orderdays":42,
+"eQuantity":3000,
+"search_word":"BAV99W.115",
+"currency":1,
+"match":0,
+"priceBreak":[
+{
+"quantity":3000,
+"price":0.0151,
+"summ":45.300000000000004
+},
+{
+"quantity":9000,
+"price":0.0136,
+"summ":122.39999999999999
+}
+]
+}
+]
+}

@@ -1,0 +1,15 @@
+# Тестовый API: доступ для проверки запросов по коду товара.
+# Не трогает боевой обмен, использует только api_url_test.
+<Files "index.php">
+    Order Allow,Deny
+    Allow from all
+</Files>
+<Files "load_to_bitrix.php">
+    Order Allow,Deny
+    Allow from all
+</Files>
+<Files "update_price.php">
+    Order Allow,Deny
+    Allow from all
+</Files>
+Options -Indexes

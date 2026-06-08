@@ -1,0 +1,27 @@
+/* 16px Inter (Default) */
+html {
+  font-size: 16px;
+}
+body,
+body div.bx-yandex-map,
+body .ymaps-map .ymaps-b-balloon,
+.fancybox-title,
+.gm-style,
+.gm-style-iw-d {
+  font: 16px/27px "Inter", Arial, sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+.popup-window {
+  font-family: "Inter", Arial, sans-serif;
+}

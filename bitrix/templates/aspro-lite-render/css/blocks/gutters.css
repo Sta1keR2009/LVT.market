@@ -1,0 +1,127 @@
+/* margin inline */
+.mi {
+	--mi: 0px;
+	margin-inline: var(--mi);
+}
+.mi--16 {
+	--mi: 16px;
+}
+
+.m-block {
+	--m-block: 0px;
+	margin-block: var(--m-block);
+}
+.m-block--24 {
+	--m-block: 24px;
+}
+
+/* margin top */
+.mt {
+	--mt: 0px;
+	margin-top: var(--mt);
+}
+.mt--auto {
+	--mt: auto;
+}
+.mt--4 {
+	--mt: 4px;
+}
+.mt--6 {
+	--mt: 6px;
+}
+.mt--8 {
+	--mt: 8px;
+}
+.mt--10 {
+	--mt: 10px;
+}
+.mt--12 {
+	--mt: 12px;
+}
+.mt--16 {
+	--mt: 16px;
+}
+.mt--24 {
+	--mt: 24px;
+}
+
+/* margin bottom */
+.mb {
+	--mb: 0px;
+	margin-bottom: var(--mb);
+}
+.mb--2 {
+	--mb: 2px;
+}
+.mb--8 {
+	--mb: 8px;
+}
+.mb--12 {
+	--mb: 12px;
+}
+.mb--16 {
+	--mb: 16px;
+}
+.mb--24 {
+	--mb: 24px;
+}
+
+/* margin right */
+.mr {
+	--mr: 0px;
+	margin-right: var(--mr);
+}
+.mr--6 {
+	--mr: 6px;
+}
+.mr--12 {
+	--mr: 12px;
+}
+
+/* margin left */
+.ml {
+	--ml: 0px;
+	margin-left: var(--ml);
+}
+.ml--12 {
+	--ml: 12px;
+}
+
+/* padding inline */
+.p-inline {
+	--p-inline: 0px;
+	padding-inline: var(--p-inline);
+}
+.p-inline--20 {
+	--p-inline: 20px;
+}
+
+/* padding block */
+.p-block {
+	--p-block: 0px;
+	padding-block: var(--p-block);
+}
+.p-block--24 {
+	--p-block: 24px;
+}
+
+/* padding top */
+.pt {
+	--pt: 0px;
+	padding-top: var(--pt);
+}
+.pt--8 {
+	--pt: 8px;
+}
+.pt--12 {
+	--pt: 12px;
+}
+
+/* padding bottom */
+.pb {
+	--pb: 0px;
+	padding-bottom: var(--pb);
+}
+.pb--10 {
+	--pb: 10px;
+}
